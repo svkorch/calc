@@ -2,9 +2,10 @@ package calc
 
 import (
 	"errors"
-	"fmt"
 	"log"
 	"strconv"
+
+	rom "github.com/brandenc40/romannumeral"
 )
 
 type digits int
@@ -27,8 +28,7 @@ var romanNumbers = make(map[string]int)
 func calculate(s string) string {
 	argX, argY, operation, calcSystem, err := parseInput(s)
 	if err != nil {
-		log.Println(err)
-		return ""
+		log.Fatalln(err)
 	}
 
 	return intToString(operations[operation](argX, operation, argY), calcSystem)
@@ -47,16 +47,22 @@ func intToString(x int, calcSystem digits) string {
 }
 
 func intToArabicDigits(x int) string {
-	return fmt.Sprintf("<%d>", x)
+	return strconv.Itoa(x)
 }
 
 func intToRomanDigits(x int) string {
 	if x <= 0 {
 		log.Println(errors.New("Roman system cannot represent a non positive number."))
-		return "<>"
+		return ""
 	}
 
-	return fmt.Sprintf("Roma<%d>", x)
+	romanStr, err := rom.IntToString(x)
+	if err != nil {
+		log.Fatalln(errors.New("Cannot convert integer to roman number string."))
+		// return ""
+	}
+
+	return romanStr
 }
 
 func init() {
@@ -70,14 +76,11 @@ func init() {
 		arabicNumbers[strconv.Itoa(i)] = i
 	}
 
-	romanNumbers["I"] = 1
-	romanNumbers["II"] = 2
-	romanNumbers["III"] = 3
-	romanNumbers["IV"] = 4
-	romanNumbers["V"] = 5
-	romanNumbers["VI"] = 6
-	romanNumbers["VII"] = 7
-	romanNumbers["VIII"] = 8
-	romanNumbers["IX"] = 9
-	romanNumbers["X"] = 10
+	for i := MIN_NUMBER; i <= MAX_NUMBER; i++ {
+		romanStr, err := rom.IntToString(i)
+		if err != nil {
+			log.Fatalln(errors.New("Cannot convert integer to roman number string."))
+		}
+		romanNumbers[romanStr] = i
+	}
 }
