@@ -35,7 +35,8 @@ var romanNumbers = make(map[string]int)
 func calculate(s string) string {
 	argX, argY, operation, calcSystem, err := parseInput(s)
 	if err != nil {
-		log.Fatalln(err)
+		log.Println(err)
+		return "!"
 	}
 
 	return intToString(operations[operation](argX, operation, argY), calcSystem)
