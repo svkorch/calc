@@ -2,5 +2,5 @@ package calc
 
 // For export purposes
 func Calculate(s string) string {
-	return s + " = " + calculate(s)
+	return calculate(s)
 }

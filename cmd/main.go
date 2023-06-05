@@ -8,19 +8,23 @@ import (
 
 func main() {
 	// Good
-	fmt.Println(calc.Calculate("X * X"))
-	fmt.Println(calc.Calculate("1 + 2"))
-	fmt.Println(calc.Calculate("VI / III"))
-	fmt.Println(calc.Calculate("VII / III"))
-	fmt.Println(calc.Calculate("I + II"))
+	f("X * X")
+	f("1 + 2")
+	f("VI / III")
+	f("VII / III")
+	f("I + II")
 
 	// Norman
-	fmt.Println(calc.Calculate("I - II"))
+	f("I - II")
 
 	//Bad
-	fmt.Println(calc.Calculate("I + 1"))
-	fmt.Println(calc.Calculate("I"))
-	fmt.Println(calc.Calculate("1 + 1 + 1"))
-	fmt.Println(calc.Calculate("3 & 5"))
-	fmt.Println(calc.Calculate("3 / 55"))
+	f("I + 1")
+	f("I")
+	f("1 + 1 + 1")
+	f("3 & 5")
+	f("3 / 55")
+}
+
+func f(s string) {
+	fmt.Println(s + " = " + calc.Calculate(s))
 }
