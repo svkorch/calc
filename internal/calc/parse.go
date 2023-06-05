@@ -10,11 +10,13 @@ import (
 func parseInput(s string) (int, int, string, digits, error) {
 	args := strings.Split(s, " ")
 	if len(args) != 3 {
-		return 0, 0, "", 0, errors.New("Input \"<operand_1> <operation> <operand_2>\" expected.")
+		return 0, 0, "", 0, errors.New(
+			"Input \"<operand_1> <operation> <operand_2>\" expected.")
 	}
 
 	if !checkOperation(args[1]) {
-		return 0, 0, "", 0, errors.New("Allowed operations are: " + opList())
+		return 0, 0, "", 0, errors.New(
+			"Allowed operations are: " + opList())
 	}
 	operation := args[1]
 
@@ -37,6 +39,8 @@ func parseInput(s string) (int, int, string, digits, error) {
 	return argX, argY, operation, calcSystemX, nil
 }
 
+// opList returns a string of comma-space separated
+// quoted operations signs
 func opList() string {
 	list := make([]string, len(operations))
 

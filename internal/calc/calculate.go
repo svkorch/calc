@@ -8,8 +8,10 @@ import (
 	rom "github.com/brandenc40/romannumeral"
 )
 
+// Data type to specify the type of number
 type digits int
 
+// Constants to specify the type of number
 const (
 	_ = iota
 	ARABIC_DIGITS
@@ -21,8 +23,13 @@ const (
 	MAX_NUMBER = 10
 )
 
+// Set of functions do to allowed calculations
 var operations = make(map[string]func(int, string, int) int)
+
+// Set of arabic numbers allowed for input
 var arabicNumbers = make(map[string]int)
+
+// Set of arabic numbers allowed for input
 var romanNumbers = make(map[string]int)
 
 func calculate(s string) string {
@@ -72,10 +79,12 @@ func init() {
 	operations["*"] = func(x int, op string, y int) int { return x * y }
 	operations["/"] = func(x int, op string, y int) int { return x / y }
 
+	// Precalculations of allowed arabic input numbers
 	for i := MIN_NUMBER; i <= MAX_NUMBER; i++ {
 		arabicNumbers[strconv.Itoa(i)] = i
 	}
 
+	// Precalculations of allowed roman input numbers
 	for i := MIN_NUMBER; i <= MAX_NUMBER; i++ {
 		romanStr, err := rom.IntToString(i)
 		if err != nil {
