@@ -1,4 +1,4 @@
-module git.sk.sk/sk/calc
+module github.com/svkorch/calc
 
 go 1.20
 

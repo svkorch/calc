@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	"git.sk.sk/sk/calc/internal/calc"
+	"github.com/svkorch/calc/internal/calc"
 )
 
 func main() {
