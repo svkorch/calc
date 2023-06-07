@@ -6,8 +6,8 @@ import (
 	"strings"
 )
 
-// argX, argY, operation, calcSystem, err
-func parseInput(s string) (int, int, string, digits, error) {
+// argX, argY, operation, numSystem, err
+func parseInput(s string) (int, int, string, NumeralSystem, error) {
 	args := strings.Split(s, " ")
 	if len(args) != 3 {
 		return 0, 0, "", 0, errors.New(
@@ -20,23 +20,23 @@ func parseInput(s string) (int, int, string, digits, error) {
 	}
 	operation := args[1]
 
-	argX, calcSystemX, err := parseOperand(args[0])
+	argX, numSystemX, err := parseOperand(args[0])
 	if err != nil {
 		return 0, 0, "", 0, err
 	}
 
-	argY, calcSystemY, err := parseOperand(args[2])
+	argY, numSystemY, err := parseOperand(args[2])
 	if err != nil {
 		return 0, 0, "", 0, err
 	}
 
-	if calcSystemX != calcSystemY {
+	if numSystemX != numSystemY {
 		return 0, 0, "", 0, errors.New(
 			"Operands should consist both of Arabic " +
 				"or both of uppercase Roman digits.")
 	}
 
-	return argX, argY, operation, calcSystemX, nil
+	return argX, argY, operation, numSystemX, nil
 }
 
 // opList returns a string of comma-space separated
@@ -60,7 +60,7 @@ func checkOperation(s string) bool {
 	return ok
 }
 
-func parseOperand(s string) (int, digits, error) {
+func parseOperand(s string) (int, NumeralSystem, error) {
 	value, ok := arabicNumbers[s]
 	if !ok {
 		value, ok = romanNumbers[s]

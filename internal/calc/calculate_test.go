@@ -29,7 +29,7 @@ var testCaseBad = []string{
 
 func TestGoodCases(t *testing.T) {
 	for input, expected := range testCaseGood {
-		got := calculate(input)
+		got := Calculate(input)
 
 		if got != expected {
 			t.Fatalf("Input: [%s], got [%s], expected [%s]\n", input, got, expected)
@@ -40,7 +40,7 @@ func TestGoodCases(t *testing.T) {
 func TestNormalCases(t *testing.T) {
 	expected := ""
 	for _, input := range testCaseNormal {
-		got := calculate(input)
+		got := Calculate(input)
 
 		if got != expected {
 			t.Fatalf("Input: [%s], got [%s], expected [%s]\n", input, got, expected)
@@ -51,7 +51,7 @@ func TestNormalCases(t *testing.T) {
 func TestBadCases(t *testing.T) {
 	expected := "!"
 	for _, input := range testCaseBad {
-		got := calculate(input)
+		got := Calculate(input)
 
 		if got != expected {
 			t.Fatalf("Input: [%s], got [%s], expected [%s]\n", input, got, expected)

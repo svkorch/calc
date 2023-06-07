@@ -9,12 +9,11 @@ import (
 )
 
 // Data type to specify the type of number
-type digits int
+type NumeralSystem int
 
 // Constants to specify the type of number
 const (
-	_ = iota
-	ARABIC_DIGITS
+	ARABIC_DIGITS NumeralSystem = iota
 	ROMAN_DIGITS
 )
 
@@ -23,7 +22,7 @@ const (
 	MAX_NUMBER = 10
 )
 
-// Set of functions do to allowed calculations
+// Set of functions to do allowed calculations
 var operations = make(map[string]func(int, string, int) int)
 
 // Set of arabic numbers allowed for input
@@ -32,22 +31,22 @@ var arabicNumbers = make(map[string]int)
 // Set of arabic numbers allowed for input
 var romanNumbers = make(map[string]int)
 
-func calculate(s string) string {
-	argX, argY, operation, calcSystem, err := parseInput(s)
+func Calculate(s string) string {
+	argX, argY, operation, numSystem, err := parseInput(s)
 	if err != nil {
 		log.Println(err)
 		return "!"
 	}
 
-	return intToString(operations[operation](argX, operation, argY), calcSystem)
+	return intToString(operations[operation](argX, operation, argY), numSystem)
 }
 
-func intToString(x int, calcSystem digits) string {
-	if calcSystem == ARABIC_DIGITS {
+func intToString(x int, numSystem NumeralSystem) string {
+	if numSystem == ARABIC_DIGITS {
 		return intToArabicDigits(x)
 	}
 
-	if calcSystem == ROMAN_DIGITS {
+	if numSystem == ROMAN_DIGITS {
 		return intToRomanDigits(x)
 	}
 
@@ -67,7 +66,6 @@ func intToRomanDigits(x int) string {
 	romanStr, err := rom.IntToString(x)
 	if err != nil {
 		log.Fatalln(errors.New("Cannot convert integer to roman number string."))
-		// return ""
 	}
 
 	return romanStr
