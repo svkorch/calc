@@ -22,15 +22,22 @@ const (
 	MAX_NUMBER = 10
 )
 
+// Data type to specify an integer value and a numeral system of a number
+type number struct {
+	value  int
+	system NumeralSystem
+}
+
+// Set of numbers allowed for input
+var numbers = make(map[string]number)
+
 // Set of functions to do allowed calculations
 var operations = make(map[string]func(int, string, int) int)
 
-// Set of arabic numbers allowed for input
-var arabicNumbers = make(map[string]int)
-
-// Set of arabic numbers allowed for input
-var romanNumbers = make(map[string]int)
-
+// Calculate interprets the input string as an arithmetic expression,
+// calculates it and returns the result as a string.
+// It supports Roman and Arabic numeral systems.
+// Both of input expression operands must be in the same numeral system.
 func Calculate(s string) string {
 	argX, argY, operation, numSystem, err := parseInput(s)
 	if err != nil {
@@ -80,7 +87,7 @@ func init() {
 
 	// Precalculations of allowed arabic input numbers
 	for i := MIN_NUMBER; i <= MAX_NUMBER; i++ {
-		arabicNumbers[strconv.Itoa(i)] = i
+		numbers[strconv.Itoa(i)] = number{i, ARABIC_DIGITS}
 	}
 
 	// Precalculations of allowed roman input numbers
@@ -89,6 +96,6 @@ func init() {
 		if err != nil {
 			log.Fatalln(errors.New("Cannot convert integer to roman number string."))
 		}
-		romanNumbers[romanStr] = i
+		numbers[romanStr] = number{i, ROMAN_DIGITS}
 	}
 }

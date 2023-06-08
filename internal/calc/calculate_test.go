@@ -109,7 +109,7 @@ func Benchmark_mapRomanStrToInt(b *testing.B) {
 	for _, v := range benchNumbers {
 		b.Run(fmt.Sprintf("input_[%s]", v.roman), func(b *testing.B) {
 			for i := 0; i < b.N; i++ {
-				_ = romanNumbers[v.roman]
+				_ = numbers[v.roman].value
 			}
 		})
 	}
@@ -119,7 +119,7 @@ func Benchmark_mapArabicStrToInt(b *testing.B) {
 	for _, v := range benchNumbers {
 		b.Run(fmt.Sprintf("input_[%s]", v.arabic), func(b *testing.B) {
 			for i := 0; i < b.N; i++ {
-				_ = arabicNumbers[v.arabic]
+				_ = numbers[v.arabic].value
 			}
 		})
 	}

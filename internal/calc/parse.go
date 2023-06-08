@@ -14,7 +14,7 @@ func parseInput(s string) (int, int, string, NumeralSystem, error) {
 			"Input \"<operand_1> <operation> <operand_2>\" expected.")
 	}
 
-	if !checkOperation(args[1]) {
+	if _, ok := operations[args[1]]; !ok {
 		return 0, 0, "", 0, errors.New(
 			"Allowed operations are: " + opList())
 	}
@@ -54,27 +54,16 @@ func opList() string {
 	return strings.Join(list, ", ")
 }
 
-func checkOperation(s string) bool {
-	_, ok := operations[s]
-
-	return ok
-}
-
 func parseOperand(s string) (int, NumeralSystem, error) {
-	value, ok := arabicNumbers[s]
+	number, ok := numbers[s]
 	if !ok {
-		value, ok = romanNumbers[s]
-		if !ok {
-			return 0, 0, errors.New(
-				fmt.Sprintf(
-					"Numbers should be Arabic or uppercase Roman "+
-						"from %d to %d.",
-					MIN_NUMBER,
-					MAX_NUMBER))
-		}
-
-		return value, ROMAN_DIGITS, nil
+		return 0, 0, errors.New(
+			fmt.Sprintf(
+				"Numbers should be Arabic or uppercase Roman "+
+					"from %d to %d.",
+				MIN_NUMBER,
+				MAX_NUMBER))
 	}
 
-	return value, ARABIC_DIGITS, nil
+	return number.value, number.system, nil
 }
